@@ -1,0 +1,24 @@
+.wrapper {
+    margin: 0 auto;
+    width: 900px;
+    display: flex;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    background: gray;
+}
+.wrapper span {
+    color: black;
+}
+.wrapper span a {
+    font-size: 20px;
+}
+.wrapper_header {
+    width: 50vw;
+    display: flex;
+    justify-content: flex-end;
+}
+.wrapper_header__link a {
+    margin-right: 40px;
+    font-size: 20px;
+}
