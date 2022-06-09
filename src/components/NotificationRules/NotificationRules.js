@@ -1,33 +1,10 @@
 import styles from './NotificationRules.module.css'
-import {v4} from 'uuid'
+import { v4 } from 'uuid'
 import { Notification } from '../Notification/Notification'
 import { useState, useEffect } from 'react'
 
-const NotificationRules = () => { 
-
-    const [post, setPost] = useState()
-
-    const notifications = [
-        {
-            id: v4(),
-            type: 'SUCCESS',
-            message: `${post}`,
-        },
-        // {
-        //     id: v4(),
-        //     type: 'ERROR',
-        //     message: 'Hello World 2',
-        // },
-    ]
-
-    // const msg = {
-    //     id: v4(),
-    //     type: 'message',
-    //     text: 'Ping',
-    //     date: Date.now()
-    // }
-
-
+const NotificationRules = () => {
+    const [notifications, setNotifications] = useState([]);
     // const getMetod = fetch('wss://javascript.info/article/websocket/demo/hello', {
     //     method: 'GET',
     //     headers: {
@@ -53,21 +30,24 @@ const NotificationRules = () => {
     //     }
     // })
 
-
     useEffect(() => {
         setInterval(() => {
             const ws = new WebSocket('wss://javascript.info/article/websocket/demo/hello')
-            // ws.onopen = () => {console.log(JSON.stringify(notifications[0].type))}
-            ws.onopen = function(event) {
+            ws.onopen = function (event) {
                 ws.send('Ping')
-                // ws.send(JSON.stringify(event.data))
             }
-            ws.onmessage = function(event) {
+            ws.onmessage = function (event) {
                 console.log('Pong', event.data)
-                setPost(event.data)
+                setNotifications([
+                    {
+                        id: v4(),
+                        type: 'SUCCESS',
+                        message: `${event.data}`
+                    }
+                ]);
             }
-        }, 3000)
-    }, [])
+        }, 3000);
+    }, []);
 
     return (
         <div className={styles.wrapper}>
@@ -78,12 +58,8 @@ const NotificationRules = () => {
                     })
                 }
             </div>
-
-            <div>
-                {/* <h1>{post}</h1> */}
-            </div>
         </div>
     )
 }
 
-export {NotificationRules}
+export { NotificationRules }
